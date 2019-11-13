@@ -1,12 +1,13 @@
-from _thread import start_new_thread
-a=1
-def factorial(n):
-    global a
-    a = a * n
-    print(a)
-    if(n==0 or n==1):
-        return 1
-    else:
-        a = a*n
-        return n * factorial(n-1)
-start_new_thread(factorial,(3,))
+import socket               # Import socket module
+
+s = socket.socket()         # Create a socket object
+host = socket.gethostname() # Get local machine name
+port = 12345                # Reserve a port for your service.
+s.bind((host, port))        # Bind to the port
+
+s.listen(5)                 # Now wait for client connection.
+while True:
+   c,addr = s.accept()     # Establish connection with client.
+   print('Got connection from', addr)
+   c.send('Thank you for connecting')
+   c.close()                # Close the connection
